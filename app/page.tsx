@@ -1,3 +1,12 @@
+import { UserButton } from "@clerk/nextjs"
+
 export default function Home() {
-  return <div>Hello there!</div>;
+  return (
+    <div className=" flex flex-col gap-y-4">
+      <div>Dashboard</div>
+      <div>
+        <UserButton />
+      </div>
+    </div>
+  )
 }
