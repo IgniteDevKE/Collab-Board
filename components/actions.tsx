@@ -1,13 +1,20 @@
 "use client"
 
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu"
+import { Link2, Pencil, Trash2 } from "lucide-react"
+import { toast } from "sonner"
 
+import { useApiMutation } from "@/hooks/use-api-mutation"
+import { api } from "@/convex/_generated/api"
+import { useRenameModal } from "@/store/use-rename-modal"
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
+import { ConfirmModal } from "./confirm-modal"
+import { Button } from "./ui/button"
 
 interface ActionProps {
   children: React.ReactNode
@@ -24,10 +31,24 @@ export const Actions = ({
   id,
   title,
 }: ActionProps) => {
+  const { onOpen } = useRenameModal()
+  const { mutate, pending } = useApiMutation(api.board.remove)
+  const onCopyLink = () => {
+    navigator.clipboard
+      .writeText(`${window.location.origin}/board/${id}`)
+      .then(() => toast.success("Link copied"))
+      .catch(() => toast.error("Failed to copy link"))
+  }
+  const onDelete = () => {
+    mutate({ id })
+      .then(() => toast.success("Board deleted"))
+      .catch(() => toast.error("Failed to delete board"))
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-      {/* <DropdownMenuContent
+      <DropdownMenuContent
         onClick={(e) => e.stopPropagation()}
         side={side}
         sideOffset={sideOffset}
@@ -58,7 +79,7 @@ export const Actions = ({
             Delete
           </Button>
         </ConfirmModal>
-      </DropdownMenuContent> */}
+      </DropdownMenuContent>
     </DropdownMenu>
   )
 }
