@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button"
 import { useApiMutation } from "@/hooks/use-api-mutation"
 
 export const EmptyBoards = () => {
+  const router = useRouter()
+  const { organization } = useOrganization()
   const { mutate, pending } = useApiMutation(api.board.create)
   const onClick = () => {
     if (!organization) return
@@ -19,12 +21,11 @@ export const EmptyBoards = () => {
     })
       .then((id) => {
         toast.success("Board successfully created")
-        // router.push(`/board/${id}`)
+        router.push(`/board/${id}`)
       })
       .catch(() => toast.error("Failed to create board"))
   }
-  const router = useRouter()
-  const { organization } = useOrganization()
+
   return (
     <div className="h-full flex flex-col items-center justify-center">
       <Image src="/empty-board.svg" height={200} width={200} alt="Empty" />
