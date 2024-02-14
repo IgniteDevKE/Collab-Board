@@ -18,7 +18,7 @@ export const Toolbar = () => {
   )
 }
 
-Toolbar.Skeleton = function ToolbarSkeleton() {
+export const ToolbarSkeleton = () => {
   return (
     <div className="absolute top-[50%] -translate-y-[50%] left-2 flex flex-col items-center shadow-md gap-y-4 rounded-md bg-white h-[360px] w-[52px]" />
   )
