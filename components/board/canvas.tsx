@@ -44,6 +44,10 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
     []
   )
 
+  const onPointerLeave = useMutation(({ setMyPresence }) => {
+    setMyPresence({ cursor: null })
+  }, [])
+
   return (
     <main className="h-full w-full relative bg-neutral-100 touch-none">
       <Info boardId={boardId} />
@@ -59,6 +63,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       <svg
         onWheel={onWheel}
         onPointerMove={onPointerMove}
+        onPointerLeave={onPointerLeave}
         className="h-[100vh] w-[100vw]"
       >
         <g>
