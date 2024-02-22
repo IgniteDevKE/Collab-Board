@@ -17,7 +17,7 @@ export function Room({ children, roomId, fallback }: IRoomProps) {
   return (
     <RoomProvider
       id={roomId}
-      initialPresence={{ cursor: null }}
+      initialPresence={{ cursor: null, selection: [] }}
       initialStorage={{
         layers: new LiveMap<string, LiveObject<Layer>>(),
         layersIds: new LiveList(),
