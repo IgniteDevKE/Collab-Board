@@ -21,9 +21,10 @@ import {
 } from "@/types/canvas"
 import { Info, Participants, Toolbar } from "./index"
 import { CursorsPresence } from "./cursors-presence"
+import { LayerPreview } from "./layer-preview"
+import { SelectionBox } from "./selection-box"
 import { connectionIdToColor, pointerEventToCanvasPoint } from "@/lib/utils"
 import { LiveObject } from "@liveblocks/client"
-import { LayerPreview } from "./layer-preview"
 
 interface ICanvasProps {
   boardId: string
@@ -181,6 +182,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
               selectionColor={layerIdsToColorSelection[layerId]}
             />
           ))}
+          <SelectionBox onResizeHandlePointerDown={() => {}} />
           <CursorsPresence />
         </g>
       </svg>
