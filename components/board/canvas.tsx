@@ -31,6 +31,7 @@ import {
   resizeBounds,
 } from "@/lib/utils"
 import { LiveObject } from "@liveblocks/client"
+import { SelectionTools } from "./selection-tools"
 
 interface ICanvasProps {
   boardId: string
@@ -261,6 +262,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         undo={history.undo}
         redo={history.redo}
       />
+      <SelectionTools camera={camera} setLastUsedColor={setLastUsedColor} />
       <svg
         onWheel={onWheel}
         onPointerMove={onPointerMove}
