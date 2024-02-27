@@ -21,7 +21,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function connectionIdToColor(connectionId: number) {
+export function connectionIdToColor(connectionId: number): string {
   return COLORS[connectionId % COLORS.length]
 }
 
@@ -36,9 +36,9 @@ export function pointerEventToCanvasPoint(
 }
 
 export function colorToCss(color: Color) {
-  return `#${color.r.toString(16).padStart(2, "0")}
-           ${color.g.toString(16).padStart(2, "0")}
-           ${color.b.toString(16).padStart(2, "0")}`
+  return `#${color.r.toString(16).padStart(2, "0")}${color.g
+    .toString(16)
+    .padStart(2, "0")}${color.b.toString(16).padStart(2, "0")}`
 }
 
 export function resizeBounds(bounds: XYWH, corner: Side, point: Point): XYWH {
