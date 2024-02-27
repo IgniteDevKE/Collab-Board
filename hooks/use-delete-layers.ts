@@ -6,7 +6,7 @@ export const useDeleteLayers = () => {
   return useMutation(
     ({ storage, setMyPresence }) => {
       const liveLayers = storage.get("layers")
-      const liveLayerIds = storage.get("layerIds")
+      const liveLayerIds = storage.get("layersIds")
 
       for (const id of selection) {
         liveLayers.delete(id)
