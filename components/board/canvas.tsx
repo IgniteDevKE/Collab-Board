@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo, useState, useEffect } from "react"
 import {
   useHistory,
   useCanUndo,
@@ -37,6 +37,8 @@ import {
 import { LiveObject } from "@liveblocks/client"
 import { SelectionTools } from "./selection-tools"
 import { Path } from "./board-elements"
+import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce"
+import { useDeleteLayers } from "@/hooks/use-delete-layers"
 
 interface ICanvasProps {
   boardId: string
@@ -58,6 +60,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
     b: 0,
   })
 
+  useDisableScrollBounce()
   const history = useHistory()
   const canUndo = useCanUndo()
   const canRedo = useCanRedo()
@@ -377,6 +380,40 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
     }
     return layersIdsToColorSelection
   }, [selections])
+
+  const deleteLayers = useDeleteLayers()
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      switch (e.key) {
+        // Fix this key, so that in the event of writing text, it doesn't delete the layer
+
+        // case "Backspace":
+        // case "Delete": {
+        //   deleteLayers()
+        //   break
+        // }
+        case "z": {
+          if (e.ctrlKey || e.metaKey) {
+            if (e.shiftKey) {
+              history.redo()
+            } else {
+              history.undo()
+            }
+            break
+          }
+        }
+        case "y": {
+          if (e.ctrlKey) {
+            history.redo()
+          }
+          break
+        }
+      }
+    }
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [deleteLayers, history])
 
   return (
     <main className="h-full w-full relative bg-neutral-100 touch-none">
