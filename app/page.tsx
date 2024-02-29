@@ -69,7 +69,7 @@ export default function LandingPage() {
               <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                   <Image
-                    src="/_sketch/page3.png"
+                    src="/sketch/page3.png"
                     alt="product preview"
                     width={1364}
                     height={866}
@@ -152,7 +152,7 @@ export default function LandingPage() {
           <div className="mt-16 flow-root sm:mt-24">
             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
               <Image
-                src="/_sketch/page1.png"
+                src="/sketch/page1.png"
                 alt="uploading preview"
                 width={1419}
                 height={732}
