@@ -18,13 +18,18 @@ export const ConvexClientProvider = ({
   children,
 }: ConvexClientProviderProps) => {
   return (
-    <ClerkProvider>
-      <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
-        <Authenticated>{children}</Authenticated>
-        <AuthLoading>
-          <Loading />
-        </AuthLoading>
-      </ConvexProviderWithClerk>
+    <ClerkProvider
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
+      {
+        <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
+          {/* <Authenticated>{children}</Authenticated>
+          <AuthLoading>
+            <Loading />
+          </AuthLoading> */}
+          {children}
+        </ConvexProviderWithClerk>
+      }
     </ClerkProvider>
   )
 }

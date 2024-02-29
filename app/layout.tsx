@@ -11,7 +11,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Board-Project",
+  title: "Collab Board",
   description:
     "A collaborative whiteboard application that allows users to draw on a shared canvas in real time.",
 }

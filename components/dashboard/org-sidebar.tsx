@@ -24,8 +24,8 @@ export const OrgSidebar = () => {
       <Link href="/">
         <div className="flex items-center gap-x-2">
           <Image src="/logo.svg" alt="Logo" height={60} width={60} />
-          <span className={cn("font-semibold text-2xl", font.className)}>
-            Board
+          <span className={cn("font-semibold text-base", font.className)}>
+            Collab Board
           </span>
         </div>
       </Link>
@@ -57,7 +57,7 @@ export const OrgSidebar = () => {
           size="lg"
           className="font-normal justify-start px-2 w-full"
         >
-          <Link href="/">
+          <Link href="/main">
             <LayoutDashboard className="h-4 w-4 mr-2" />
             Team boards
           </Link>
@@ -68,7 +68,7 @@ export const OrgSidebar = () => {
           size="lg"
           className="font-normal justify-start px-2 w-full"
         >
-          <Link href={{ pathname: "/", query: { favorites: true } }}>
+          <Link href={{ pathname: "/main", query: { favorites: true } }}>
             <Star className="h-4 w-4 mr-2" />
             Favorite boards
           </Link>

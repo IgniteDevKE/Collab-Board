@@ -41,7 +41,7 @@ export const Navbar = () => {
         />
       </div>
       {organization && <UserInvite />}
-      <UserButton />
+      <UserButton afterSignOutUrl="/" />
     </div>
   )
 }

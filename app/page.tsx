@@ -1,13 +1,18 @@
+"use client"
+
 import { ArrowRight } from "lucide-react"
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import Link from "next/link"
 
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import Navbar from "@/components/navbar"
+import { useConvexAuth } from "convex/react"
+import { SignInButton, SignUpButton } from "@clerk/nextjs"
 
 export default function LandingPage() {
+  const { isAuthenticated, isLoading } = useConvexAuth()
   return (
     <>
       <Navbar />
@@ -25,17 +30,22 @@ export default function LandingPage() {
           Sketch together in real-time on our interactive whiteboard. Just open,
           draw, and collaborate instantly.
         </p>
-
-        <Link
-          className={buttonVariants({
-            size: "lg",
-            className: "mt-5",
-          })}
-          href="/dashboard"
-          target="_blank"
-        >
-          Get started <ArrowRight className="ml-2 h-5 w-5" />
-        </Link>
+        {!isAuthenticated && !isLoading && (
+          <>
+            <SignUpButton mode="modal">
+              <Button size="lg" className="mt-5">
+                Get started <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </SignUpButton>
+          </>
+        )}
+        {isAuthenticated && !isLoading && (
+          <>
+            <Button size="lg" className="mt-5" asChild>
+              <Link href="/main">Go to Dashboard</Link>
+            </Button>
+          </>
+        )}
       </MaxWidthWrapper>
 
       {/* value proposition section */}
@@ -171,7 +181,11 @@ export default function LandingPage() {
                 color="#FFFFFF"
               />
             </Link>
-            <Link href="https://www.linkedin.com/in/ian-chege/">
+            <Link
+              href="https://www.linkedin.com/in/ian-chege/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <LinkedInLogoIcon
                 style={{ height: "25px", width: "25px" }}
                 color="#FFFFFF"
