@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import { Suspense } from "react"
 
 import { ConvexClientProvider } from "@/providers/convex-client-provider"
 import { Toaster } from "@/components/ui/sonner"
+import { Loading } from "@/components/auth/loading"
 import { ModalProvider } from "@/providers/modal-provider"
 import { cn } from "@/lib/utils"
 
@@ -24,11 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("antialiased grainy", inter.className)}>
-        <ConvexClientProvider>
-          <Toaster />
-          <ModalProvider />
-          {children}
-        </ConvexClientProvider>
+        <Suspense fallback={<Loading />}>
+          <ConvexClientProvider>
+            <Toaster />
+            <ModalProvider />
+            {children}
+          </ConvexClientProvider>
+        </Suspense>
       </body>
     </html>
   )
