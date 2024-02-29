@@ -6,6 +6,7 @@ import "./globals.css"
 import { ConvexClientProvider } from "@/providers/convex-client-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { ModalProvider } from "@/providers/modal-provider"
+import { cn } from "@/lib/utils"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn("antialiased grainy", inter.className)}>
         <ConvexClientProvider>
           <Toaster />
           <ModalProvider />
