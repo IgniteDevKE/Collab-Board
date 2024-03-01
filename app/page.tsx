@@ -168,7 +168,14 @@ export default function LandingPage() {
       <div className="bg-gray-900">
         <MaxWidthWrapper className="flex justify-between items-center px-3 py-12 text-center">
           <p className="text-gray-400">
-            &copy; 2024 IgniteDev. All rights reserved.
+            &copy; 2024{" "}
+            <Link
+              href="https://ignite-dev.vercel.app/"
+              className="hover:underline"
+            >
+              IgniteDev
+            </Link>
+            . All rights reserved.
           </p>
           <div className="flex gap-2">
             <Link
