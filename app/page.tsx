@@ -74,6 +74,7 @@ export default function LandingPage() {
                     width={1364}
                     height={866}
                     quality={100}
+                    priority={true}
                     className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
                   />
                 </div>
@@ -157,6 +158,7 @@ export default function LandingPage() {
                 width={1419}
                 height={732}
                 quality={100}
+                priority={true}
                 className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
               />
             </div>
