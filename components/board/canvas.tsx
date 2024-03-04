@@ -393,6 +393,43 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         //   deleteLayers()
         //   break
         // }
+        case "Escape":
+        case "s": {
+          setCanvasState({ mode: CanvasMode.None })
+          break
+        }
+        case "t": {
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Text,
+          })
+          break
+        }
+        case "n": {
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Note,
+          })
+          break
+        }
+        case "r": {
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Rectangle,
+          })
+          break
+        }
+        case "e": {
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Ellipse,
+          })
+          break
+        }
+        case "p": {
+          setCanvasState({ mode: CanvasMode.Pencil })
+          break
+        }
         case "z": {
           if (e.ctrlKey || e.metaKey) {
             if (e.shiftKey) {
@@ -413,7 +450,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
     }
     document.addEventListener("keydown", onKeyDown)
     return () => document.removeEventListener("keydown", onKeyDown)
-  }, [deleteLayers, history])
+  }, [deleteLayers, history, setCanvasState])
 
   return (
     <main className="h-full w-full relative bg-neutral-100 touch-none">

@@ -33,7 +33,7 @@ export const Toolbar = ({
     <div className="absolute top-[50%] -translate-y-[50%] left-2 flex flex-col items-center shadow-md gap-y-4">
       <div className="bg-white rounded-md p-1.5 flex gap-y-1 flex-col items-center shadow-md">
         <ToolButton
-          label="Select"
+          label="Select (s)"
           icon={MousePointer2}
           onClick={() => setCanvasState({ mode: CanvasMode.None })}
           isActive={
@@ -45,7 +45,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Text"
+          label="Text (t)"
           icon={Type}
           onClick={() =>
             setCanvasState({
@@ -59,7 +59,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Sticky note"
+          label="Sticky note (n)"
           icon={StickyNote}
           onClick={() =>
             setCanvasState({
@@ -73,7 +73,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Rectangle"
+          label="Rectangle (r)"
           icon={Square}
           onClick={() =>
             setCanvasState({
@@ -87,7 +87,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Ellipse"
+          label="Ellipse (e)"
           icon={Circle}
           onClick={() =>
             setCanvasState({
@@ -101,7 +101,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Pen"
+          label="Pen (p)"
           icon={Pencil}
           onClick={() =>
             setCanvasState({
