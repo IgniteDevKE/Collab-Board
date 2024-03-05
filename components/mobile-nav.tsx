@@ -1,11 +1,16 @@
 "use client"
 
-import { ArrowRight, Menu } from "lucide-react"
+import { SignUpButton, SignInButton, UserButton } from "@clerk/nextjs"
+import { useConvexAuth } from "convex/react"
+import { Menu } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
+import { Button } from "./ui/button"
+
 const MobileNav = () => {
+  const { isAuthenticated, isLoading } = useConvexAuth()
   const [isOpen, setOpen] = useState<boolean>(false)
 
   const toggleOpen = () => setOpen((prev) => !prev)
@@ -16,12 +21,6 @@ const MobileNav = () => {
     if (isOpen) toggleOpen()
     //eslint-disable-next-line
   }, [pathname])
-
-  const closeOnCurrent = (href: string) => {
-    if (pathname === href) {
-      toggleOpen()
-    }
-  }
 
   return (
     <div className="sm:hidden">
@@ -34,27 +33,38 @@ const MobileNav = () => {
         <div className="fixed animate-in slide-in-from-top-5 fade-in-20 inset-0 z-0 w-full">
           <ul className="absolute bg-white border-b border-zinc-200 shadow-xl grid w-full gap-3 px-10 pt-20 pb-8">
             <>
-              <li>
-                <Link
-                  onClick={() => closeOnCurrent("/sign-up")}
-                  className="flex items-center w-full font-semibold text-blue-600"
-                  href="/sign-up"
-                >
-                  Get started
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </li>
-              <li className="my-3 h-px w-full bg-gray-300" />
-              <li>
-                <Link
-                  onClick={() => closeOnCurrent("/sign-in")}
-                  className="flex items-center w-full font-semibold"
-                  href="/sign-in"
-                >
-                  Sign in
-                </Link>
-              </li>
-              <li className="my-3 h-px w-full bg-gray-300" />
+              {!isAuthenticated && !isLoading && (
+                <>
+                  <li>
+                    <SignUpButton mode="modal" afterSignUpUrl="/main">
+                      Get Started
+                    </SignUpButton>
+                  </li>
+                  <li className="my-3 h-px w-full bg-gray-300" />
+                </>
+              )}
+
+              {!isAuthenticated && !isLoading && (
+                <>
+                  <li>
+                    <SignInButton mode="modal" afterSignInUrl="/main">
+                      Sign in
+                    </SignInButton>
+                  </li>
+                  <li className="my-3 h-px w-full bg-gray-300" />
+                </>
+              )}
+
+              {isAuthenticated && !isLoading && (
+                <>
+                  <Button>
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link href="/main">Dashboard</Link>
+                    </Button>
+                    <UserButton afterSignOutUrl="/" />
+                  </Button>
+                </>
+              )}
               {/* <li>
                   <Link
                     onClick={() => closeOnCurrent("/pricing")}

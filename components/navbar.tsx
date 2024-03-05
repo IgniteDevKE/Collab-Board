@@ -39,7 +39,7 @@ const Navbar = () => {
                   </Button>
                 </SignInButton>
 
-                <SignUpButton mode="modal">
+                <SignUpButton mode="modal" afterSignUpUrl="/main">
                   <Button size="sm">
                     Get started <ArrowRight className="ml-1.5 h-5 w-5" />
                   </Button>
