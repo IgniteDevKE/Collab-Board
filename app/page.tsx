@@ -32,7 +32,7 @@ export default function LandingPage() {
         </p>
         {!isAuthenticated && !isLoading && (
           <>
-            <SignUpButton mode="modal">
+            <SignUpButton mode="modal" afterSignUpUrl="/main">
               <Button size="lg" className="mt-5">
                 Get started <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
