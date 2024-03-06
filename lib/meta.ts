@@ -33,7 +33,6 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL("https://collabboardx.vercel.app"),
-    themeColor: "#FFF",
     ...(noIndex && {
       robots: {
         index: false,
