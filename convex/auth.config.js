@@ -1,10 +1,10 @@
 const authConfig = {
-    providers: [
-        {
-            domain: "https://funky-glowworm-73.clerk.accounts.dev",
-            applicationID: "convex",
-        },
-    ]
-};
+  providers: [
+    {
+      domain: process.env.CLERK_JWT_ISSUER_DOMAIN,
+      applicationID: "convex",
+    },
+  ],
+}
 
-export default authConfig;
+export default authConfig
