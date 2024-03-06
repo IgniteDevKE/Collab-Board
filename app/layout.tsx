@@ -1,22 +1,18 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import { Suspense } from "react"
+import { Inter } from "next/font/google"
 
 import { ConvexClientProvider } from "@/providers/convex-client-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { Loading } from "@/components/auth/loading"
 import { ModalProvider } from "@/providers/modal-provider"
 import { cn } from "@/lib/utils"
+import { constructMetadata } from "@/lib/meta"
 
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  title: "Collab Board",
-  description:
-    "A collaborative whiteboard application that allows users to draw on a shared canvas in real time.",
-}
+export const metadata = constructMetadata()
 
 export default function RootLayout({
   children,
