@@ -57,7 +57,7 @@ export const OrgSidebar = () => {
         >
           <Link href="/main">
             <GalleryHorizontalEnd className="h-4 w-4 mr-2" />
-            Your workspace
+            Team boards
           </Link>
         </Button>
         <Button
@@ -68,7 +68,7 @@ export const OrgSidebar = () => {
         >
           <Link href={{ pathname: "/main", query: { favorites: true } }}>
             <Heart className="h-4 w-4 mr-2" />
-            Favorite workspace
+            Favorite boards
           </Link>
         </Button>
       </div>
