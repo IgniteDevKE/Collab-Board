@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Poppins } from "next/font/google"
 import { OrganizationSwitcher } from "@clerk/nextjs"
-import { LayoutDashboard, Star } from "lucide-react"
+import { GalleryHorizontalEnd, Heart } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 
 import { cn } from "@/lib/utils"
@@ -56,8 +56,8 @@ export const OrgSidebar = () => {
           className="font-normal justify-start px-2 w-full"
         >
           <Link href="/main">
-            <LayoutDashboard className="h-4 w-4 mr-2" />
-            Team boards
+            <GalleryHorizontalEnd className="h-4 w-4 mr-2" />
+            Your workspace
           </Link>
         </Button>
         <Button
@@ -67,8 +67,8 @@ export const OrgSidebar = () => {
           className="font-normal justify-start px-2 w-full"
         >
           <Link href={{ pathname: "/main", query: { favorites: true } }}>
-            <Star className="h-4 w-4 mr-2" />
-            Favorite boards
+            <Heart className="h-4 w-4 mr-2" />
+            Favorite workspace
           </Link>
         </Button>
       </div>
