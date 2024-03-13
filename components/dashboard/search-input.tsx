@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { ChangeEvent, useEffect, useState } from "react"
-import { useDebounceValue } from "usehooks-ts"
+import { useDebouncedValue } from "@mantine/hooks"
 import qs from "query-string"
 import { Search } from "lucide-react"
 
@@ -11,7 +11,7 @@ import { Input } from "../ui/input"
 export const SearchInput = () => {
   const router = useRouter()
   const [value, setValue] = useState("")
-  const [debouncedValue] = useDebounceValue(value, 500)
+  const [debouncedValue] = useDebouncedValue(value, 500)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
@@ -20,7 +20,7 @@ export const SearchInput = () => {
   useEffect(() => {
     const url = qs.stringifyUrl(
       {
-        url: "/main",
+        url: "/main/",
         query: {
           search: debouncedValue,
         },
