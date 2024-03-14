@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { ChangeEvent, useEffect, useState } from "react"
-import { useDebounceValue } from "usehooks-ts"
+import { useDebounce } from "@/hooks/use-debounce"
 import qs from "query-string"
 import { Search } from "lucide-react"
 
@@ -11,31 +11,23 @@ import { Input } from "../ui/input"
 export const SearchInput = () => {
   const router = useRouter()
   const [value, setValue] = useState("")
-  const [debouncedValue] = useDebounceValue(value, 500)
+  const debouncedValue = useDebounce<string>(value, 500)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
 
   useEffect(() => {
-    const navigateToUrl = async () => {
-      try {
-        const url = qs.stringifyUrl(
-          {
-            url: "/main",
-            query: {
-              search: debouncedValue,
-            },
-          },
-          { skipEmptyString: true, skipNull: true }
-        )
-        router.push(url)
-      } catch (error) {
-        console.error(`Failed to navigate: ${error}`)
-      }
-    }
-
-    navigateToUrl()
+    const url = qs.stringifyUrl(
+      {
+        url: window.location.href,
+        query: {
+          search: debouncedValue,
+        },
+      },
+      { skipEmptyString: true, skipNull: true }
+    )
+    router.push(url)
   }, [debouncedValue, router])
   return (
     <div className="w-full relative">
