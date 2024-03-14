@@ -162,7 +162,7 @@ export const unfavorite = mutation({
 export const get = query({
   args: { id: v.id("boards") },
   handler: async (ctx, args) => {
-    const board = await ctx.db.get(args.id)
+    const board = ctx.db.get(args.id)
     return board
   },
 })
