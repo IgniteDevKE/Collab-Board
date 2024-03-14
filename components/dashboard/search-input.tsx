@@ -18,16 +18,24 @@ export const SearchInput = () => {
   }
 
   useEffect(() => {
-    const url = qs.stringifyUrl(
-      {
-        url: "/main",
-        query: {
-          search: debouncedValue,
-        },
-      },
-      { skipEmptyString: true, skipNull: true }
-    )
-    router.push(url)
+    const navigateToUrl = async () => {
+      try {
+        const url = qs.stringifyUrl(
+          {
+            url: "/main",
+            query: {
+              search: debouncedValue,
+            },
+          },
+          { skipEmptyString: true, skipNull: true }
+        )
+        router.push(url)
+      } catch (error) {
+        console.error(`Failed to navigate: ${error}`)
+      }
+    }
+
+    navigateToUrl()
   }, [debouncedValue, router])
   return (
     <div className="w-full relative">
