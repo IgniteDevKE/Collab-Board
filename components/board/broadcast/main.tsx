@@ -102,7 +102,7 @@ export const Broadcast = () => {
   return (
     <>
       <div
-        className="relative flex h-screen w-full touch-none items-center justify-center overflow-hidden"
+        className="relative"
         style={{
           cursor:
             state.mode === CursorMode.Chat
@@ -169,7 +169,7 @@ export const Broadcast = () => {
           >
             {state.mode === CursorMode.Chat && (
               <>
-                <Image src="cursor.svg" alt="" width={24} height={36} />
+                <Image src="/cursor.svg" alt="" width={24} height={36} />
 
                 <div
                   className="absolute top-5 left-2 bg-blue-500 px-4 py-2 text-sm leading-relaxed text-white"
