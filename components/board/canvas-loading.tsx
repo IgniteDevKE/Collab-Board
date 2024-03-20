@@ -1,10 +1,11 @@
+import { Boxes } from "lucide-react"
+
 import { InfoSkeleton, ParticipantsSkeleton, ToolbarSkeleton } from "./index"
-import Image from "next/image"
 
 export const CanvasLoading = () => {
   return (
     <main className="h-full w-full relative bg-neutral-100 touch-none flex items-center justify-center">
-      <Image src="/loader.svg" alt="" fill />
+      <Boxes className="h-20 w-20 animate-spin" />
       <InfoSkeleton />
       <ParticipantsSkeleton />
       <ToolbarSkeleton />
