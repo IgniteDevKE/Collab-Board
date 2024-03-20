@@ -26,6 +26,7 @@ import { Info, Participants, Toolbar } from "./index"
 import { CursorsPresence } from "./cursors-presence"
 import { LayerPreview } from "./layer-preview"
 import { SelectionBox } from "./selection-box"
+import { Broadcast } from "./broadcast/main"
 import {
   colorToCss,
   connectionIdToColor,
@@ -465,6 +466,8 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         redo={history.redo}
       />
       <SelectionTools camera={camera} setLastUsedColor={setLastUsedColor} />
+      {/* Broadcast event */}
+      <Broadcast />
       <svg
         onWheel={onWheel}
         onPointerMove={onPointerMove}

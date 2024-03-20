@@ -54,7 +54,7 @@ export const CursorsPresence = memo(() => {
   return (
     <>
       <Drafts />
-      <Cursors />
+      {/* <Cursors /> */}
     </>
   )
 })

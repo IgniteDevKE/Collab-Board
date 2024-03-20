@@ -1,5 +1,6 @@
 import {
   Circle,
+  MessageSquareText,
   MousePointer2,
   Pencil,
   Redo2,
@@ -10,11 +11,19 @@ import {
 } from "lucide-react"
 
 import { ToolButton } from "./tool-button"
-import { CanvasMode, CanvasState, LayerType } from "@/types/canvas"
+import {
+  CanvasMode,
+  CanvasState,
+  CursorMode,
+  CursorState,
+  LayerType,
+} from "@/types/canvas"
 
 interface IToolbar {
   canvasState: CanvasState
+  // cursorState: CursorState
   setCanvasState: (newState: CanvasState) => void
+  // setCursorState: (newState: CursorState) => void
   undo: () => void
   redo: () => void
   canUndo: boolean
@@ -23,7 +32,9 @@ interface IToolbar {
 
 export const Toolbar = ({
   canvasState,
+  // cursorState,
   setCanvasState,
+  // setCursorState,
   undo,
   redo,
   canUndo,
@@ -33,7 +44,7 @@ export const Toolbar = ({
     <div className="absolute top-[50%] -translate-y-[50%] left-2 flex flex-col items-center shadow-md gap-y-4">
       <div className="bg-white rounded-md p-1.5 flex gap-y-1 flex-col items-center shadow-md">
         <ToolButton
-          label="Select (s)"
+          label="Select"
           icon={MousePointer2}
           onClick={() => setCanvasState({ mode: CanvasMode.None })}
           isActive={
@@ -45,7 +56,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Text (t)"
+          label="Text"
           icon={Type}
           onClick={() =>
             setCanvasState({
@@ -59,7 +70,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Sticky note (n)"
+          label="Sticky note"
           icon={StickyNote}
           onClick={() =>
             setCanvasState({
@@ -73,7 +84,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Rectangle (r)"
+          label="Rectangle"
           icon={Square}
           onClick={() =>
             setCanvasState({
@@ -87,7 +98,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Ellipse (e)"
+          label="Ellipse"
           icon={Circle}
           onClick={() =>
             setCanvasState({
@@ -101,7 +112,7 @@ export const Toolbar = ({
           }
         />
         <ToolButton
-          label="Pen (p)"
+          label="Pen"
           icon={Pencil}
           onClick={() =>
             setCanvasState({
@@ -110,6 +121,18 @@ export const Toolbar = ({
           }
           isActive={canvasState.mode === CanvasMode.Pencil}
         />
+        {/* <ToolButton
+          label="Chat (/)"
+          icon={MessageSquareText}
+          onClick={() =>
+            setCursorState({
+              mode: CursorMode.Chat,
+              message: "",
+              previousMessage: null,
+            })
+          }
+          isActive={cursorState.mode === CursorMode.Chat && cursorState.message === "" && cursorState.previousMessage === null} 
+        /> */}
       </div>
 
       <div className="bg-white rounded-md p-1.5 flex gap-y-1 flex-col items-center shadow-md">

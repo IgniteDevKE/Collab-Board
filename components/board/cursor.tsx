@@ -8,9 +8,10 @@ import { useOther } from "@/liveblocks.config"
 
 interface ICursor {
   connectionId: number
+  message?: string
 }
 
-export const Cursor = memo(({ connectionId }: ICursor) => {
+export const Cursor = memo(({ connectionId, message }: ICursor) => {
   const info = useOther(connectionId, (user) => user?.info)
   const cursor = useOther(connectionId, (user) => user.presence.cursor)
   const name = info?.name || "Teammate"
@@ -39,6 +40,19 @@ export const Cursor = memo(({ connectionId }: ICursor) => {
       >
         {name}
       </div>
+      {message && (
+        <div
+          className="absolute top-5 left-2 rounded-3xl px-4 py-2"
+          style={{
+            backgroundColor: connectionIdToColor(connectionId),
+            borderRadius: 20,
+          }}
+        >
+          <p className="whitespace-nowrap text-sm leading-relaxed text-white">
+            {message}
+          </p>
+        </div>
+      )}
     </foreignObject>
   )
 })
