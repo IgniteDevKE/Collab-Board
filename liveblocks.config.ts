@@ -80,9 +80,9 @@ type UserMeta = {
 type RoomEvent = {
   // type: "NOTIFICATION",
   // ...
-  x: number
-  y: number
-  value: string
+  x?: number
+  y?: number
+  value?: string
 }
 
 // Optionally, when using Comments, ThreadMetadata represents metadata on

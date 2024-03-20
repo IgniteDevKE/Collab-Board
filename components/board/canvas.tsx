@@ -466,7 +466,8 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         redo={history.redo}
       />
       <SelectionTools camera={camera} setLastUsedColor={setLastUsedColor} />
-      {/* <Broadcast /> */}
+      {/* Broadcast event */}
+      <Broadcast />
       <svg
         onWheel={onWheel}
         onPointerMove={onPointerMove}
