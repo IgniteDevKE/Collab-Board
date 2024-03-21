@@ -8,7 +8,7 @@ import { Button } from "../ui/button"
 interface IToolButtonProps {
   label: string
   icon: LucideIcon
-  onClick: () => void
+  onClick?: () => void
   isActive?: boolean
   isDisabled?: boolean
 }

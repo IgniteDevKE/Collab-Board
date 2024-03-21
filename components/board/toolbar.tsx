@@ -21,9 +21,7 @@ import {
 
 interface IToolbar {
   canvasState: CanvasState
-  // cursorState: CursorState
   setCanvasState: (newState: CanvasState) => void
-  // setCursorState: (newState: CursorState) => void
   undo: () => void
   redo: () => void
   canUndo: boolean
@@ -32,9 +30,7 @@ interface IToolbar {
 
 export const Toolbar = ({
   canvasState,
-  // cursorState,
   setCanvasState,
-  // setCursorState,
   undo,
   redo,
   canUndo,
@@ -121,18 +117,7 @@ export const Toolbar = ({
           }
           isActive={canvasState.mode === CanvasMode.Pencil}
         />
-        {/* <ToolButton
-          label="Chat (/)"
-          icon={MessageSquareText}
-          onClick={() =>
-            setCursorState({
-              mode: CursorMode.Chat,
-              message: "",
-              previousMessage: null,
-            })
-          }
-          isActive={cursorState.mode === CursorMode.Chat && cursorState.message === "" && cursorState.previousMessage === null} 
-        /> */}
+        <ToolButton label="Chat [/]" icon={MessageSquareText} />
       </div>
 
       <div className="bg-white rounded-md p-1.5 flex gap-y-1 flex-col items-center shadow-md">
