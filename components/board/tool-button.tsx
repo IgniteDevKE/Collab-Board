@@ -21,7 +21,7 @@ export const ToolButton = ({
   isDisabled,
 }: IToolButtonProps) => {
   return (
-    <Hint label={label} side="right" sideOffset={14}>
+    <Hint label={label} side="top" sideOffset={10}>
       <Button
         disabled={isDisabled}
         onClick={onClick}

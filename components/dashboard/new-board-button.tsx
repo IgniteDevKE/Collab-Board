@@ -23,10 +23,10 @@ export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
       title: "Untitled",
     })
       .then((id) => {
-        toast.success("Board created")
+        toast.success("Workspace created")
         router.push(`/board/${id}`)
       })
-      .catch(() => toast.error("Failed to create board"))
+      .catch(() => toast.error("Failed to create workspace"))
   }
 
   return (
@@ -41,7 +41,7 @@ export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
     >
       <div />
       <Plus className="h-12 w-12 text-white stroke-1" />
-      <p className="text-sm text-white font-semibold">New board</p>
+      <p className="text-sm text-white font-semibold">New workspace</p>
     </button>
   )
 }
