@@ -28,11 +28,13 @@ export const create = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity()
-    if (!identity) throw new Error("Unauthorized")
+    if (!identity) {
+      throw new Error("Unauthorized")
+    }
     const randomImage = images[Math.floor(Math.random() * images.length)]
     const board = await ctx.db.insert("boards", {
-      orgId: args.orgId,
       title: args.title,
+      orgId: args.orgId,
       authorId: identity.subject,
       authorName: identity.name!,
       imageUrl: randomImage,
@@ -67,11 +69,11 @@ export const update = mutation({
   args: { id: v.id("boards"), title: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity()
-    const title = args.title.trim()
-
     if (!identity) {
       throw new Error("Unauthorized")
     }
+
+    const title = args.title.trim()
 
     if (!title) {
       throw new Error("Title is required")
