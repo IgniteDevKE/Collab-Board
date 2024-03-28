@@ -37,19 +37,21 @@ export const RenameModal = () => {
       title,
     })
       .then(() => {
-        toast.success("Board renamed")
+        toast.success("Workspace renamed")
         onClose()
       })
-      .catch(() => toast.error("Failed to rename board"))
+      .catch(() => toast.error("Failed to rename workspace"))
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit board title</DialogTitle>
+          <DialogTitle>Edit workspace title</DialogTitle>
         </DialogHeader>
-        <DialogDescription>Enter a new title for this board</DialogDescription>
+        <DialogDescription>
+          Enter a new title for this workspace
+        </DialogDescription>
         <form onSubmit={onSubmit} className="space-y-4">
           <Input
             disabled={pending}
@@ -57,7 +59,7 @@ export const RenameModal = () => {
             maxLength={60}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Board title"
+            placeholder="Workspace title"
           />
           <DialogFooter>
             <DialogClose asChild>
