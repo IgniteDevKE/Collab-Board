@@ -26,7 +26,6 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
           {query.favorites ? "Favorite workspace" : "Your workspace"}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
-          <NewBoardButton orgId={orgId} disabled />
           <BoardCard.Skeleton />
           <BoardCard.Skeleton />
           <BoardCard.Skeleton />
@@ -51,7 +50,6 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
         {query.favorites ? "Favorite workspace" : "Your workspace"}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
-        <NewBoardButton orgId={orgId} />
         {data?.map((board) => (
           <BoardCard
             key={board._id}
@@ -65,6 +63,9 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
             isFavorite={board.isFavorite}
           />
         ))}
+      </div>
+      <div className="absolute bottom-2 right-2">
+        <NewBoardButton orgId={orgId} />
       </div>
     </div>
   )
