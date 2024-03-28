@@ -32,7 +32,7 @@ export default function LandingPage() {
         </p>
         {!isAuthenticated && !isLoading && (
           <>
-            <SignUpButton mode="modal" afterSignUpUrl="/main">
+            <SignUpButton mode="modal" afterSignUpUrl="/dashboard">
               <Button size="lg" className="mt-5">
                 Get started <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -42,7 +42,7 @@ export default function LandingPage() {
         {isAuthenticated && !isLoading && (
           <>
             <Button size="lg" className="mt-5" asChild>
-              <Link href="/main">Go to Dashboard</Link>
+              <Link href="/dashboard">Go to Dashboard</Link>
             </Button>
           </>
         )}

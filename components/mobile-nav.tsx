@@ -36,7 +36,7 @@ const MobileNav = () => {
               {!isAuthenticated && !isLoading && (
                 <>
                   <li>
-                    <SignUpButton mode="modal" afterSignUpUrl="/main">
+                    <SignUpButton mode="modal" afterSignUpUrl="/dashboard">
                       Get Started
                     </SignUpButton>
                   </li>
@@ -47,7 +47,7 @@ const MobileNav = () => {
               {!isAuthenticated && !isLoading && (
                 <>
                   <li>
-                    <SignInButton mode="modal" afterSignInUrl="/main">
+                    <SignInButton mode="modal" afterSignInUrl="/dashboard">
                       Sign in
                     </SignInButton>
                   </li>
@@ -59,7 +59,7 @@ const MobileNav = () => {
                 <>
                   <Button>
                     <Button variant="ghost" size="sm" asChild>
-                      <Link href="/main">Dashboard</Link>
+                      <Link href="/dashboard">Dashboard</Link>
                     </Button>
                     <UserButton afterSignOutUrl="/" />
                   </Button>

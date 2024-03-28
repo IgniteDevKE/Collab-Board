@@ -33,13 +33,13 @@ const Navbar = () => {
                 >
                   Pricing
                 </Link> */}
-                <SignInButton mode="modal" afterSignInUrl="/main">
+                <SignInButton mode="modal" afterSignInUrl="/dashboard">
                   <Button variant="ghost" size="sm">
                     Sign in
                   </Button>
                 </SignInButton>
 
-                <SignUpButton mode="modal" afterSignUpUrl="/main">
+                <SignUpButton mode="modal" afterSignUpUrl="/dashboard">
                   <Button size="sm">
                     Get started <ArrowRight className="ml-1.5 h-5 w-5" />
                   </Button>
@@ -49,7 +49,7 @@ const Navbar = () => {
             {isAuthenticated && !isLoading && (
               <>
                 <Button variant="ghost" size="sm" asChild>
-                  <Link href="/main">Dashboard</Link>
+                  <Link href="/dashboard">Dashboard</Link>
                 </Button>
                 <UserButton afterSignOutUrl="/" />
               </>
