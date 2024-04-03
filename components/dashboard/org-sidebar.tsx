@@ -29,6 +29,7 @@ export const OrgSidebar = () => {
       </Link>
       <OrganizationSwitcher
         hidePersonal
+        afterLeaveOrganizationUrl="/dashboard"
         appearance={{
           elements: {
             rootBox: {
