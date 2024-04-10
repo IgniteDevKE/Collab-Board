@@ -1,6 +1,12 @@
 "use client"
 
-import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs"
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs"
 import { useConvexAuth } from "convex/react"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
@@ -8,7 +14,6 @@ import Link from "next/link"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import MobileNav from "./mobile-nav"
 import { Button } from "./ui/button"
-import { Spinner } from "./ui/spinner"
 
 const Navbar = () => {
   const { isAuthenticated, isLoading } = useConvexAuth()
@@ -20,19 +25,22 @@ const Navbar = () => {
           <MobileNav />
 
           <div className="hidden items-center space-x-4 sm:flex">
-            {isLoading && <Spinner />}
-            {isAuthenticated && !isLoading && (
+            {/* {isLoading && <Spinner />}
+            {isAuthenticated && !isLoading && ( */}
+            <SignedIn>
               <>
                 <Button variant="ghost" size="sm" asChild>
                   <Link href="/dashboard">Dashboard</Link>
                 </Button>
                 <UserButton afterSignOutUrl="/" />
               </>
-            )}
-            {!isAuthenticated && !isLoading && (
-              <>
-                {/* Pricing */}
-                {/* <Link
+            </SignedIn>
+
+            {/* )}
+            {!isAuthenticated && !isLoading && ( */}
+            <>
+              {/* Pricing */}
+              {/* <Link
                   href="/pricing"
                   className={buttonVariants({
                     variant: "ghost",
@@ -41,6 +49,7 @@ const Navbar = () => {
                 >
                   Pricing
                 </Link> */}
+              <SignedOut>
                 <SignInButton mode="modal" afterSignInUrl="/dashboard">
                   <Button variant="ghost" size="sm">
                     Sign in
@@ -52,8 +61,9 @@ const Navbar = () => {
                     Get started <ArrowRight className="ml-1.5 h-5 w-5" />
                   </Button>
                 </SignUpButton>
-              </>
-            )}
+              </SignedOut>
+            </>
+            {/* )} */}
           </div>
         </div>
       </MaxWidthWrapper>

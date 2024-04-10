@@ -1,15 +1,15 @@
 "use client"
 
-import { ArrowRight } from "lucide-react"
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons"
+import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
-import { Button, buttonVariants } from "@/components/ui/button"
 import Navbar from "@/components/navbar"
+import { Button } from "@/components/ui/button"
+import { SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs"
 import { useConvexAuth } from "convex/react"
-import { SignInButton, SignUpButton } from "@clerk/nextjs"
 
 export default function LandingPage() {
   const { isAuthenticated, isLoading } = useConvexAuth()
@@ -30,14 +30,18 @@ export default function LandingPage() {
           Sketch together in real-time on our interactive whiteboard. Just open,
           draw, and collaborate instantly.
         </p>
-        {isAuthenticated && !isLoading && (
+        {/* {isAuthenticated && !isLoading && ( */}
+        <SignedIn>
           <>
             <Button size="lg" className="mt-5" asChild>
               <Link href="/dashboard">Go to Dashboard</Link>
             </Button>
           </>
-        )}
-        {!isAuthenticated && !isLoading && (
+        </SignedIn>
+
+        {/* )}
+        {!isAuthenticated && !isLoading && ( */}
+        <SignedOut>
           <>
             <SignUpButton mode="modal" afterSignUpUrl="/dashboard">
               <Button size="lg" className="mt-5">
@@ -45,7 +49,9 @@ export default function LandingPage() {
               </Button>
             </SignUpButton>
           </>
-        )}
+        </SignedOut>
+
+        {/* )} */}
       </MaxWidthWrapper>
 
       {/* value proposition section */}

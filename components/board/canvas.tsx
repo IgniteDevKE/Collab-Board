@@ -1,17 +1,27 @@
 "use client"
 
-import { useCallback, useMemo, useState, useEffect } from "react"
 import {
-  useHistory,
-  useCanUndo,
   useCanRedo,
+  useCanUndo,
+  useHistory,
   useMutation,
-  useStorage,
   useOthersMapped,
   useSelf,
+  useStorage,
 } from "@/liveblocks.config"
 import { nanoid } from "nanoid"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
+import { useDeleteLayers } from "@/hooks/use-delete-layers"
+import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce"
+import {
+  colorToCss,
+  connectionIdToColor,
+  findIntersectingLayersWithRectangle,
+  penPointsToPathLayer,
+  pointerEventToCanvasPoint,
+  resizeBounds,
+} from "@/lib/utils"
 import {
   Camera,
   CanvasMode,
@@ -22,24 +32,14 @@ import {
   Side,
   XYWH,
 } from "@/types/canvas"
-import { Info, Participants, Toolbar } from "./index"
+import { LiveObject } from "@liveblocks/client"
+import { Path } from "./board-elements"
+import { Broadcast } from "./broadcast/main"
 import { CursorsPresence } from "./cursors-presence"
+import { Info, Participants, Toolbar } from "./index"
 import { LayerPreview } from "./layer-preview"
 import { SelectionBox } from "./selection-box"
-import { Broadcast } from "./broadcast/main"
-import {
-  colorToCss,
-  connectionIdToColor,
-  findIntersectingLayersWithRectangle,
-  penPointsToPathLayer,
-  pointerEventToCanvasPoint,
-  resizeBounds,
-} from "@/lib/utils"
-import { LiveObject } from "@liveblocks/client"
 import { SelectionTools } from "./selection-tools"
-import { Path } from "./board-elements"
-import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce"
-import { useDeleteLayers } from "@/hooks/use-delete-layers"
 
 interface ICanvasProps {
   boardId: string
