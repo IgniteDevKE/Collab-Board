@@ -1,5 +1,6 @@
 "use client"
 
+import { SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs"
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
@@ -8,11 +9,8 @@ import Link from "next/link"
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
 import Navbar from "@/components/navbar"
 import { Button } from "@/components/ui/button"
-import { SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs"
-import { useConvexAuth } from "convex/react"
 
 export default function LandingPage() {
-  const { isAuthenticated, isLoading } = useConvexAuth()
   return (
     <>
       <Navbar />
@@ -30,28 +28,18 @@ export default function LandingPage() {
           Sketch together in real-time on our interactive whiteboard. Just open,
           draw, and collaborate instantly.
         </p>
-        {/* {isAuthenticated && !isLoading && ( */}
         <SignedIn>
-          <>
-            <Button size="lg" className="mt-5" asChild>
-              <Link href="/dashboard">Go to Dashboard</Link>
-            </Button>
-          </>
+          <Button size="lg" className="mt-5" asChild>
+            <Link href="/dashboard">Go to Dashboard</Link>
+          </Button>
         </SignedIn>
-
-        {/* )}
-        {!isAuthenticated && !isLoading && ( */}
         <SignedOut>
-          <>
-            <SignUpButton mode="modal" afterSignUpUrl="/dashboard">
-              <Button size="lg" className="mt-5">
-                Get started <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </SignUpButton>
-          </>
+          <SignUpButton mode="modal" afterSignUpUrl="/dashboard">
+            <Button size="lg" className="mt-5">
+              Get started <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </SignUpButton>
         </SignedOut>
-
-        {/* )} */}
       </MaxWidthWrapper>
 
       {/* value proposition section */}
