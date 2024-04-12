@@ -1,11 +1,11 @@
-import { Suspense } from "react"
 import { Inter } from "next/font/google"
+import { Suspense } from "react"
 
-import { ConvexClientProvider } from "@/providers/convex-client-provider"
 import { Toaster } from "@/components/ui/sonner"
-import { ModalProvider } from "@/providers/modal-provider"
-import { cn } from "@/lib/utils"
 import { constructMetadata } from "@/lib/meta"
+import { cn } from "@/lib/utils"
+import { ConvexClientProvider } from "@/providers/convex-client-provider"
+import { ModalProvider } from "@/providers/modal-provider"
 
 import "./globals.css"
 
@@ -21,13 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("antialiased grainy", inter.className)}>
-        <Suspense>
-          <ConvexClientProvider>
+        <ConvexClientProvider>
+          <Suspense>
             <Toaster />
             <ModalProvider />
             {children}
-          </ConvexClientProvider>
-        </Suspense>
+          </Suspense>
+        </ConvexClientProvider>
       </body>
     </html>
   )
