@@ -3,10 +3,10 @@
 import { useQuery } from "convex/react"
 
 import { api } from "@/convex/_generated/api"
+import { BoardCard } from "./board-card"
 import { EmptyBoards } from "./empty-boards"
 import { EmptyFavorites } from "./empty-favorites"
 import { EmptySearch } from "./empty-search"
-import { BoardCard } from "./board-card"
 import { NewBoardButton } from "./new-board-button"
 
 interface BoardListProps {
