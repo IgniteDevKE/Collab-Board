@@ -3,7 +3,6 @@ import { z } from "zod"
 
 export const env = createEnv({
   server: {
-    CONVEX_DEPLOYMENT: z.string().min(1),
     CLERK_SECRET_KEY: z.string().min(1),
     CLERK_JWT_ISSUER_DOMAIN: z.string().url(),
     LIVEBLOCKS_SECRET_KEY: z.string().min(1),
@@ -14,7 +13,6 @@ export const env = createEnv({
     NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_API_KEY: z.string().min(1),
   },
   runtimeEnv: {
-    CONVEX_DEPLOYMENT: process.env.CONVEX_DEPLOYMENT,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     CLERK_JWT_ISSUER_DOMAIN: process.env.CLERK_JWT_ISSUER_DOMAIN,
     LIVEBLOCKS_SECRET_KEY: process.env.LIVEBLOCKS_SECRET_KEY,
