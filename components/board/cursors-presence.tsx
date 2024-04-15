@@ -2,11 +2,11 @@
 
 import { memo } from "react"
 
+import { colorToCss } from "@/lib/utils"
 import { useOthersConnectionIds, useOthersMapped } from "@/liveblocks.config"
 import { shallow } from "@liveblocks/client"
-import { Cursor } from "./cursor"
 import { Path } from "./board-elements"
-import { colorToCss } from "@/lib/utils"
+import { Cursor } from "./cursor"
 
 const Cursors = () => {
   const ids = useOthersConnectionIds()
@@ -26,7 +26,7 @@ const Drafts = () => {
       pencilDraft: other.presence.pencilDraft,
       penColor: other.presence.penColor,
     }),
-    shallow
+    shallow,
   )
 
   return (
