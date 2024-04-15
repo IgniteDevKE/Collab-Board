@@ -1,57 +1,16 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
-import {
-  useOthers,
-  useMyPresence,
-  useBroadcastEvent,
-  useEventListener,
-} from "@/liveblocks.config"
-import {
-  CursorMode,
-  CursorState,
-  Reaction,
-  ReactionEvent,
-} from "@/types/canvas"
-// import useInterval from "@/hooks/use-interval"
-// import FlyingReaction from "./flying-reaction"
-// import ReactionSelector from "./reaction-selector"
-import { Cursor } from "./cursor"
 import { connectionIdToColor } from "@/lib/utils"
+import { useMyPresence, useOthers } from "@/liveblocks.config"
+import { CursorMode, CursorState } from "@/types/canvas"
+import { Cursor } from "./cursor"
 
 export const Broadcast = () => {
   const others = useOthers()
   const [{ cursor }, updateMyPresence] = useMyPresence()
-  const broadcast = useBroadcastEvent()
   const [state, setState] = useState<CursorState>({ mode: CursorMode.Hidden })
-  const [reactions, setReactions] = useState<Reaction[]>([])
-
-  // const setReaction = useCallback((reaction: string) => {
-  //   setState({ mode: CursorMode.Reaction, reaction, isPressed: false })
-  // }, [])
-
-  // // Remove reactions that are not visible anymore (every 1 sec)
-  // useInterval(() => {
-  //   setReactions((reactions) =>
-  //     reactions.filter((reaction) => reaction.timestamp > Date.now() - 4000)
-  //   )
-  // }, 1000)
-
-  // useInterval(() => {
-  //   if (state.mode === CursorMode.Reaction && state.isPressed && cursor) {
-  //     setReactions((reactions) =>
-  //       reactions.concat([
-  //         {
-  //           point: { x: cursor.x, y: cursor.y },
-  //           value: state.reaction,
-  //           timestamp: Date.now(),
-  //         },
-  //       ])
-  //     )
-  //     broadcast({ x: cursor.x, y: cursor.y, value: state.reaction })
-  //   }
-  // }, 100)
 
   useEffect(() => {
     function onKeyUp(e: KeyboardEvent) {
@@ -64,8 +23,6 @@ export const Broadcast = () => {
       } else if (e.key === "Escape") {
         updateMyPresence({ message: "" })
         setState({ mode: CursorMode.Hidden })
-      } else if (e.key === "e") {
-        setState({ mode: CursorMode.ReactionSelector })
       }
     }
 
@@ -85,32 +42,13 @@ export const Broadcast = () => {
     }
   }, [updateMyPresence])
 
-  useEventListener((eventData) => {
-    const event = eventData.event as ReactionEvent
-    setReactions((reactions) =>
-      reactions.concat([
-        {
-          point: { x: event.x, y: event.y },
-          value: event.value,
-          timestamp: Date.now(),
-        },
-      ])
-    )
-  })
-
   return (
     <>
       <div
         className="relative"
-        // style={{
-        //   cursor:
-        //     state.mode === CursorMode.Chat
-        //       ? "none"
-        //       : "url(cursor.svg) 0 0, auto",
-        // }}
         onPointerMove={(event) => {
           event.preventDefault()
-          if (cursor == null || state.mode !== CursorMode.ReactionSelector) {
+          if (cursor == null) {
             updateMyPresence({
               cursor: {
                 x: Math.round(event.clientX),
@@ -127,38 +65,7 @@ export const Broadcast = () => {
             cursor: null,
           })
         }}
-        onPointerDown={(event) => {
-          updateMyPresence({
-            cursor: {
-              x: Math.round(event.clientX),
-              y: Math.round(event.clientY),
-            },
-          })
-          setState((state) =>
-            state.mode === CursorMode.Reaction
-              ? { ...state, isPressed: true }
-              : state
-          )
-        }}
-        onPointerUp={() => {
-          setState((state) =>
-            state.mode === CursorMode.Reaction
-              ? { ...state, isPressed: false }
-              : state
-          )
-        }}
       >
-        {/* {reactions.map((reaction) => {
-          return (
-            <FlyingReaction
-              key={reaction.timestamp.toString()}
-              x={reaction.point.x}
-              y={reaction.point.y}
-              timestamp={reaction.timestamp}
-              value={reaction.value}
-            />
-          )
-        })} */}
         {cursor && (
           <div
             className="absolute top-0 left-0"
@@ -207,18 +114,6 @@ export const Broadcast = () => {
                 </div>
               </>
             )}
-            {/* {state.mode === CursorMode.ReactionSelector && (
-              <ReactionSelector
-                setReaction={(reaction) => {
-                  setReaction(reaction)
-                }}
-              />
-            )}
-            {state.mode === CursorMode.Reaction && (
-              <div className="pointer-events-none absolute top-3.5 left-1 select-none">
-                {state.reaction}
-              </div>
-            )} */}
           </div>
         )}
 
