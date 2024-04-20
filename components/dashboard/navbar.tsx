@@ -40,7 +40,7 @@ export const Navbar = () => {
           }}
         />
       </div>
-      {organization && <UserInvite />}
+      {organization && <UserInvite inviteVariant="invite" />}
       <UserButton afterSignOutUrl="/" />
     </div>
   )

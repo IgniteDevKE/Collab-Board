@@ -1,10 +1,8 @@
 "use client"
 
-import { Share2 } from "lucide-react"
-
 import { connectionIdToColor } from "@/lib/utils"
 import { useOthers, useSelf } from "@/liveblocks.config"
-import { Hint } from "../hint"
+import { UserInvite } from "../dashboard/user-invite"
 import { UserAvatar } from "./user-avatar"
 
 const MAX_SHOWN_USERS = 3
@@ -17,9 +15,7 @@ export const Participants = () => {
   return (
     <div className="absolute h-12 top-2 right-2 bg-white rounded-md p-3 flex items-center shadow-md">
       <div className="flex items-center gap-x-2">
-        <Hint label="Share workspace" side="bottom" sideOffset={18}>
-          <Share2 size={24} color="#000" />
-        </Hint>
+        <UserInvite inviteVariant="share" />
 
         {currentUser && (
           <UserAvatar
