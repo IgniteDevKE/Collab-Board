@@ -33,6 +33,7 @@ import {
   XYWH,
 } from "@/types/canvas"
 import { LiveObject } from "@liveblocks/client"
+import { ShortcutsPreview } from "../dashboard/shortcuts-preview"
 import { Path } from "./board-elements"
 import { Broadcast } from "./broadcast/main"
 import { CursorsPresence } from "./cursors-presence"
@@ -49,6 +50,7 @@ const MAX_LAYERS = 100
 const SELECTION_NET_THRESHOLD = 5
 
 export const Canvas = ({ boardId }: ICanvasProps) => {
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false)
   const layerIds = useStorage((root) => root.layersIds)
   const pencilDraft = useSelf((me) => me.presence.pencilDraft)
   const [canvasState, setCanvasState] = useState<CanvasState>({
@@ -74,7 +76,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         | LayerType.Rectangle
         | LayerType.Text
         | LayerType.Note,
-      position: Point
+      position: Point,
     ) => {
       const liveLayers = storage.get("layers")
       if (liveLayers.size >= MAX_LAYERS) return
@@ -95,7 +97,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       setMyPresence({ selection: [layerId] }, { addToHistory: true })
       setCanvasState({ mode: CanvasMode.None })
     },
-    [lastUsedColor]
+    [lastUsedColor],
   )
 
   const translateSelectedLayers = useMutation(
@@ -119,7 +121,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       }
       setCanvasState({ mode: CanvasMode.Translating, current: point })
     },
-    [canvasState]
+    [canvasState],
   )
 
   const unselectLayers = useMutation(({ self, setMyPresence }) => {
@@ -141,12 +143,12 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         layerIds,
         layers,
         origin,
-        current
+        current,
       )
 
       setMyPresence({ selection: ids })
     },
-    [layerIds]
+    [layerIds],
   )
 
   const startMultiSelection = useCallback((current: Point, origin: Point) => {
@@ -180,7 +182,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
             : [...pencilDraft, [point.x, point.y, e.pressure]],
       })
     },
-    [canvasState.mode]
+    [canvasState.mode],
   )
 
   const insertPath = useMutation(
@@ -200,7 +202,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       const id = nanoid()
       liveLayers.set(
         id,
-        new LiveObject(penPointsToPathLayer(pencilDraft, lastUsedColor))
+        new LiveObject(penPointsToPathLayer(pencilDraft, lastUsedColor)),
       )
 
       const liveLayerIds = storage.get("layersIds")
@@ -209,7 +211,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       setMyPresence({ pencilDraft: null })
       setCanvasState({ mode: CanvasMode.Pencil })
     },
-    [lastUsedColor]
+    [lastUsedColor],
   )
 
   const startDrawing = useMutation(
@@ -219,7 +221,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         penColor: lastUsedColor,
       })
     },
-    [lastUsedColor]
+    [lastUsedColor],
   )
 
   const resizeSelectedLayer = useMutation(
@@ -231,7 +233,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       const bounds = resizeBounds(
         canvasState.initialBounds,
         canvasState.corner,
-        point
+        point,
       )
 
       const liveLayers = storage.get("layers")
@@ -241,7 +243,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         layer.update(bounds)
       }
     },
-    [canvasState]
+    [canvasState],
   )
 
   const onResizeHandlePointerDown = useCallback(
@@ -253,7 +255,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
         initialBounds,
       })
     },
-    [history]
+    [history],
   )
 
   const onWheel = useCallback((e: React.WheelEvent) => {
@@ -291,7 +293,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       continueDrawing,
       updateSelectionNet,
       startMultiSelection,
-    ]
+    ],
   )
 
   const onPointerLeave = useMutation(({ setMyPresence }) => {
@@ -311,7 +313,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       }
       setCanvasState({ origin: point, mode: CanvasMode.Pressing })
     },
-    [camera, canvasState.mode, setCanvasState, startDrawing]
+    [camera, canvasState.mode, setCanvasState, startDrawing],
   )
 
   const onPointerUp = useMutation(
@@ -343,7 +345,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       unselectLayers,
       insertPath,
       setCanvasState,
-    ]
+    ],
   )
 
   const onLayerPointerDown = useMutation(
@@ -365,7 +367,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
       }
       setCanvasState({ mode: CanvasMode.Translating, current: point })
     },
-    [setCanvasState, camera, history, canvasState.mode]
+    [setCanvasState, camera, history, canvasState.mode],
   )
 
   const selections = useOthersMapped((other) => other.presence.selection)
@@ -386,51 +388,57 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
-      switch (e.key) {
-        // Fix this key, so that in the event of writing text, it doesn't delete the layer
+      if (
+        (e.target as HTMLElement).tagName === "INPUT" ||
+        (e.target as HTMLElement).tagName === "TEXTAREA" ||
+        (e.target as HTMLElement).isContentEditable
+      ) {
+        return
+      }
 
-        // case "Backspace":
-        // case "Delete": {
-        //   deleteLayers()
-        //   break
-        // }
-        // case "Escape":
-        // case "s": {
-        //   setCanvasState({ mode: CanvasMode.None })
-        //   break
-        // }
-        // case "t": {
-        //   setCanvasState({
-        //     mode: CanvasMode.Inserting,
-        //     layerType: LayerType.Text,
-        //   })
-        //   break
-        // }
-        // case "n": {
-        //   setCanvasState({
-        //     mode: CanvasMode.Inserting,
-        //     layerType: LayerType.Note,
-        //   })
-        //   break
-        // }
-        // case "r": {
-        //   setCanvasState({
-        //     mode: CanvasMode.Inserting,
-        //     layerType: LayerType.Rectangle,
-        //   })
-        //   break
-        // }
-        // case "e": {
-        //   setCanvasState({
-        //     mode: CanvasMode.Inserting,
-        //     layerType: LayerType.Ellipse,
-        //   })
-        //   break
-        // }
-        // case "p": {
-        //   setCanvasState({ mode: CanvasMode.Pencil })
-        //   break
-        // }
+      switch (e.key) {
+        case "Backspace":
+        case "Delete": {
+          deleteLayers()
+          break
+        }
+        case "Escape":
+        case "1": {
+          setCanvasState({ mode: CanvasMode.None })
+          break
+        }
+        case "2": {
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Text,
+          })
+          break
+        }
+        case "3": {
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Note,
+          })
+          break
+        }
+        case "4": {
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Rectangle,
+          })
+          break
+        }
+        case "5": {
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Ellipse,
+          })
+          break
+        }
+        case "6": {
+          setCanvasState({ mode: CanvasMode.Pencil })
+          break
+        }
         case "z": {
           if (e.ctrlKey || e.metaKey) {
             if (e.shiftKey) {
@@ -447,14 +455,24 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
           }
           break
         }
+        case " ": {
+          setIsShortcutsOpen(true)
+          break
+        }
       }
     }
     document.addEventListener("keydown", onKeyDown)
     return () => document.removeEventListener("keydown", onKeyDown)
-  }, [deleteLayers, history, setCanvasState])
+  }, [deleteLayers, history, setCanvasState, setIsShortcutsOpen])
 
   return (
     <main className="h-full w-full relative bg-neutral-100 touch-none">
+      {isShortcutsOpen && (
+        <ShortcutsPreview
+          open={isShortcutsOpen}
+          onClose={() => setIsShortcutsOpen(false)}
+        />
+      )}
       <Info boardId={boardId} />
       <Participants />
       <Toolbar
