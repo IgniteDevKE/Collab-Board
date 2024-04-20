@@ -2,10 +2,10 @@
 
 import { memo } from "react"
 
+import { colorToCss } from "@/lib/utils"
 import { useStorage } from "@/liveblocks.config"
 import { LayerType } from "@/types/canvas"
-import { Rectangle, Ellipse, Text, Note, Path } from "./board-elements"
-import { colorToCss } from "@/lib/utils"
+import { Ellipse, Note, Path, Rectangle, Text } from "./board-elements"
 
 interface ILayerPreviewProps {
   id: string
@@ -70,7 +70,7 @@ export const LayerPreview = memo(
       default:
         return null
     }
-  }
+  },
 )
 
 LayerPreview.displayName = "LayerPreview"

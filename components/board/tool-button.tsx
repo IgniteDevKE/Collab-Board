@@ -11,6 +11,7 @@ interface IToolButtonProps {
   onClick?: () => void
   isActive?: boolean
   isDisabled?: boolean
+  shortcut?: number
 }
 
 export const ToolButton = ({
@@ -19,6 +20,7 @@ export const ToolButton = ({
   onClick,
   isActive,
   isDisabled,
+  shortcut,
 }: IToolButtonProps) => {
   return (
     <Hint label={label} side="top" sideOffset={10}>
@@ -27,8 +29,12 @@ export const ToolButton = ({
         onClick={onClick}
         size="icon"
         variant={isActive ? "boardActive" : "board"}
+        className="relative"
       >
         <Icon />
+        {shortcut && (
+          <span className="absolute bottom-0 right-0 text-xs">{shortcut}</span>
+        )}
       </Button>
     </Hint>
   )

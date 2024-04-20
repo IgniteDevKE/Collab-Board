@@ -14,7 +14,7 @@ export const Broadcast = () => {
 
   useEffect(() => {
     function onKeyUp(e: KeyboardEvent) {
-      if (e.key === "/") {
+      if (e.key === "7") {
         setState({
           mode: CursorMode.Chat,
           previousMessage: null,
@@ -29,7 +29,7 @@ export const Broadcast = () => {
     window.addEventListener("keyup", onKeyUp)
 
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "/") {
+      if (e.key === "7") {
         e.preventDefault()
       }
     }
