@@ -10,14 +10,8 @@ import {
   Undo2,
 } from "lucide-react"
 
+import { CanvasMode, CanvasState, LayerType } from "@/types/canvas"
 import { ToolButton } from "./tool-button"
-import {
-  CanvasMode,
-  CanvasState,
-  CursorMode,
-  CursorState,
-  LayerType,
-} from "@/types/canvas"
 
 interface IToolbar {
   canvasState: CanvasState
@@ -42,6 +36,7 @@ export const Toolbar = ({
         <ToolButton
           label="Select"
           icon={MousePointer2}
+          shortcut={1}
           onClick={() => setCanvasState({ mode: CanvasMode.None })}
           isActive={
             canvasState.mode === CanvasMode.None ||
@@ -54,6 +49,7 @@ export const Toolbar = ({
         <ToolButton
           label="Text"
           icon={Type}
+          shortcut={2}
           onClick={() =>
             setCanvasState({
               mode: CanvasMode.Inserting,
@@ -68,6 +64,7 @@ export const Toolbar = ({
         <ToolButton
           label="Sticky note"
           icon={StickyNote}
+          shortcut={3}
           onClick={() =>
             setCanvasState({
               mode: CanvasMode.Inserting,
@@ -82,6 +79,7 @@ export const Toolbar = ({
         <ToolButton
           label="Rectangle"
           icon={Square}
+          shortcut={4}
           onClick={() =>
             setCanvasState({
               mode: CanvasMode.Inserting,
@@ -96,6 +94,7 @@ export const Toolbar = ({
         <ToolButton
           label="Ellipse"
           icon={Circle}
+          shortcut={5}
           onClick={() =>
             setCanvasState({
               mode: CanvasMode.Inserting,
@@ -110,6 +109,7 @@ export const Toolbar = ({
         <ToolButton
           label="Pen"
           icon={Pencil}
+          shortcut={6}
           onClick={() =>
             setCanvasState({
               mode: CanvasMode.Pencil,
@@ -117,7 +117,7 @@ export const Toolbar = ({
           }
           isActive={canvasState.mode === CanvasMode.Pencil}
         />
-        <ToolButton label="Chat [/]" icon={MessageSquareText} />
+        <ToolButton label="Chat" icon={MessageSquareText} shortcut={7} />
         <ToolButton
           label="Undo"
           icon={Undo2}
