@@ -1,21 +1,20 @@
 "use client"
 
 import { useQuery } from "convex/react"
-import Image from "next/image"
-import Link from "next/link"
 import { Menu } from "lucide-react"
 import { Poppins } from "next/font/google"
+import Link from "next/link"
 
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 import { cn } from "@/lib/utils"
 import { useRenameModal } from "@/store/use-rename-modal"
-import { Button } from "../ui/button"
-import { Hint } from "../hint"
 import { Actions } from "../actions"
+import { Hint } from "../hint"
+import { Button } from "../ui/button"
 
 interface IInfoProps {
-  boardId: string
+  workspaceId: string
 }
 
 const font = Poppins({
@@ -27,10 +26,10 @@ const TabSeparator = () => {
   return <div className="text-neutral-300 px-1.5">|</div>
 }
 
-export const Info = ({ boardId }: IInfoProps) => {
+export const Info = ({ workspaceId }: IInfoProps) => {
   const { onOpen } = useRenameModal()
-  const data = useQuery(api.board.get, {
-    id: boardId as Id<"boards">,
+  const data = useQuery(api.workspace.get, {
+    id: workspaceId as Id<"workspaces">,
   })
   if (!data) return <InfoSkeleton />
 
@@ -42,7 +41,7 @@ export const Info = ({ boardId }: IInfoProps) => {
             <span
               className={cn(
                 "font-semibold text-xl ml-2 text-black",
-                font.className
+                font.className,
               )}
             >
               Collab Board
