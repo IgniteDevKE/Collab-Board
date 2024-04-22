@@ -4,15 +4,15 @@ import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu"
 import { Link2, Pencil, Trash2 } from "lucide-react"
 import { toast } from "sonner"
 
-import { useApiMutation } from "@/hooks/use-api-mutation"
-import { api } from "@/convex/_generated/api"
-import { useRenameModal } from "@/store/use-rename-modal"
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { api } from "@/convex/_generated/api"
+import { useApiMutation } from "@/hooks/use-api-mutation"
+import { useRenameModal } from "@/store/use-rename-modal"
 import { ConfirmModal } from "./confirm-modal"
 import { Button } from "./ui/button"
 
@@ -32,10 +32,10 @@ export const Actions = ({
   title,
 }: ActionProps) => {
   const { onOpen } = useRenameModal()
-  const { mutate, pending } = useApiMutation(api.board.remove)
+  const { mutate, pending } = useApiMutation(api.workspace.remove)
   const onCopyLink = () => {
     navigator.clipboard
-      .writeText(`${window.location.origin}/board/${id}`)
+      .writeText(`${window.location.origin}/workspace/${id}`)
       .then(() => toast.success("Link copied"))
       .catch(() => toast.error("Failed to copy link"))
   }

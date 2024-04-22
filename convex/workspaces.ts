@@ -1,5 +1,5 @@
-import { v } from "convex/values"
 import { getAllOrThrow } from "convex-helpers/server/relationships"
+import { v } from "convex/values"
 
 import { query } from "./_generated/server"
 
@@ -19,42 +19,42 @@ export const get = query({
       const favoritesBoards = await ctx.db
         .query("userFavorites")
         .withIndex("by_user_org", (q) =>
-          q.eq("userId", identity.subject).eq("orgId", args.orgId)
+          q.eq("userId", identity.subject).eq("orgId", args.orgId),
         )
         .order("desc")
         .collect()
-      const ids = favoritesBoards.map((b) => b.boardId)
-      const boards = await getAllOrThrow(ctx.db, ids)
-      return boards.map((board) => ({ ...board, isFavorite: true }))
+      const ids = favoritesBoards.map((b) => b.workspaceId)
+      const workspaces = await getAllOrThrow(ctx.db, ids)
+      return workspaces.map((workspace) => ({ ...workspace, isFavorite: true }))
     }
 
     const title = args.search as string
-    let boards = []
+    let workspaces = []
     if (title) {
-      boards = await ctx.db
-        .query("boards")
+      workspaces = await ctx.db
+        .query("workspaces")
         .withSearchIndex("search_title", (q) =>
-          q.search("title", title).eq("orgId", args.orgId)
+          q.search("title", title).eq("orgId", args.orgId),
         )
         .collect()
     } else {
-      boards = await ctx.db
-        .query("boards")
+      workspaces = await ctx.db
+        .query("workspaces")
         .withIndex("by_org", (q) => q.eq("orgId", args.orgId))
         .order("desc")
         .collect()
     }
 
-    const boardsWithFavoriteRelation = boards.map((board) => {
+    const boardsWithFavoriteRelation = workspaces.map((workspace) => {
       return ctx.db
         .query("userFavorites")
-        .withIndex("by_user_board", (q) =>
-          q.eq("userId", identity.subject).eq("boardId", board._id)
+        .withIndex("by_user_workspace", (q) =>
+          q.eq("userId", identity.subject).eq("workspaceId", workspace._id),
         )
         .unique()
         .then((favorite) => {
           return {
-            ...board,
+            ...workspace,
             isFavorite: !!favorite,
           }
         })

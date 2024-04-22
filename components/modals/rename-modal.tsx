@@ -3,23 +3,23 @@
 import { FormEventHandler, useEffect, useState } from "react"
 import { toast } from "sonner"
 
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogHeader,
-  DialogClose,
   DialogFooter,
+  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { useRenameModal } from "@/store/use-rename-modal"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { useApiMutation } from "@/hooks/use-api-mutation"
 import { api } from "@/convex/_generated/api"
+import { useApiMutation } from "@/hooks/use-api-mutation"
+import { useRenameModal } from "@/store/use-rename-modal"
 
 export const RenameModal = () => {
-  const { mutate, pending } = useApiMutation(api.board.update)
+  const { mutate, pending } = useApiMutation(api.workspace.update)
 
   const { isOpen, onClose, initialValues } = useRenameModal()
 

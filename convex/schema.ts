@@ -1,8 +1,8 @@
-import { v } from "convex/values"
 import { defineSchema, defineTable } from "convex/server"
+import { v } from "convex/values"
 
 export default defineSchema({
-  boards: defineTable({
+  workspaces: defineTable({
     title: v.string(),
     orgId: v.string(),
     authorId: v.string(),
@@ -17,10 +17,10 @@ export default defineSchema({
   userFavorites: defineTable({
     orgId: v.string(),
     userId: v.string(),
-    boardId: v.id("boards"),
+    workspaceId: v.id("workspaces"),
   })
-    .index("by_board", ["boardId"])
+    .index("by_board", ["workspaceId"])
     .index("by_user_org", ["userId", "orgId"])
-    .index("by_user_board", ["userId", "boardId"])
-    .index("by_user_board_org", ["userId", "boardId", "orgId"]),
+    .index("by_user_workspace", ["userId", "workspaceId"])
+    .index("by_user_workspace_org", ["userId", "workspaceId", "orgId"]),
 })

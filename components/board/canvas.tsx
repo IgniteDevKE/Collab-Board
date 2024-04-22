@@ -43,13 +43,13 @@ import { SelectionBox } from "./selection-box"
 import { SelectionTools } from "./selection-tools"
 
 interface ICanvasProps {
-  boardId: string
+  workspaceId: string
 }
 
 const MAX_LAYERS = 100
 const SELECTION_NET_THRESHOLD = 5
 
-export const Canvas = ({ boardId }: ICanvasProps) => {
+export const Canvas = ({ workspaceId }: ICanvasProps) => {
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false)
   const layerIds = useStorage((root) => root.layersIds)
   const pencilDraft = useSelf((me) => me.presence.pencilDraft)
@@ -473,7 +473,7 @@ export const Canvas = ({ boardId }: ICanvasProps) => {
           onClose={() => setIsShortcutsOpen(false)}
         />
       )}
-      <Info boardId={boardId} />
+      <Info workspaceId={workspaceId} />
       <Participants />
       <Toolbar
         canvasState={canvasState}
