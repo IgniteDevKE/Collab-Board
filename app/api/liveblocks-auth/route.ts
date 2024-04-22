@@ -26,9 +26,9 @@ export async function POST(request: Request) {
     }
 
     const { room } = await request.json()
-    const board = await convex.query(api.board.get, { id: room })
+    const workspace = await convex.query(api.workspace.get, { id: room })
 
-    if (board?.orgId !== authorization.orgId) {
+    if (workspace?.orgId !== authorization.orgId) {
       return new Response("Unauthorized access", {
         status: STATUS_UNAUTHORIZED,
       })
