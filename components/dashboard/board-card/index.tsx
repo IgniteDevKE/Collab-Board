@@ -1,18 +1,18 @@
 "use client"
 
+import { useAuth } from "@clerk/nextjs"
 import { formatDistanceToNow } from "date-fns"
+import { MoreHorizontal } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useAuth } from "@clerk/nextjs"
-import { MoreHorizontal } from "lucide-react"
 import { toast } from "sonner"
 
-import { useApiMutation } from "@/hooks/use-api-mutation"
-import { api } from "@/convex/_generated/api"
-import { Skeleton } from "@/components/ui/skeleton"
 import { Actions } from "@/components/actions"
-import { Overlay } from "./overlay"
+import { Skeleton } from "@/components/ui/skeleton"
+import { api } from "@/convex/_generated/api"
+import { useApiMutation } from "@/hooks/use-api-mutation"
 import { Footer } from "./footer"
+import { Overlay } from "./overlay"
 
 interface BoardCardProps {
   id: string
@@ -40,23 +40,25 @@ export const BoardCard = ({
   const createdAtLabel = formatDistanceToNow(createdAt, { addSuffix: true })
 
   const { mutate: onFavorite, pending: pendingFavorite } = useApiMutation(
-    api.board.favorite
+    api.workspace.favorite,
   )
   const { mutate: onUnfavorite, pending: pendingUnfavorite } = useApiMutation(
-    api.board.unfavorite
+    api.workspace.unfavorite,
   )
 
   const toggleFavorite = () => {
     if (isFavorite) {
       onUnfavorite({ id }).catch(() =>
-        toast.error("Failed to unfavorite board")
+        toast.error("Failed to unfavorite workspace"),
       )
     } else {
-      onFavorite({ id, orgId }).catch(() => toast.error("Failed to favorite"))
+      onFavorite({ id, orgId }).catch(() =>
+        toast.error("Failed to favorite workspace"),
+      )
     }
   }
   return (
-    <Link href={`/board/${id}`}>
+    <Link href={`/workspace/${id}`}>
       <div className="group aspect-[100/127] border rounded-lg flex flex-col justify-between overflow-hidden">
         <div className="relative flex-1 bg-stone-200">
           <Image src={imageUrl} alt="image" fill className="object-fit" />
