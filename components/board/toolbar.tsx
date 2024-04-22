@@ -31,7 +31,7 @@ export const Toolbar = ({
   canRedo,
 }: IToolbar) => {
   return (
-    <div className="absolute bottom-0 inset-x-[38%] flex items-center shadow-md gap-4">
+    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 flex items-center shadow-md gap-4">
       <div className="bg-white rounded-md p-1.5 flex gap-1 items-center shadow-md">
         <ToolButton
           label="Select"
