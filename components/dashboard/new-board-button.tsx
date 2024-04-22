@@ -1,12 +1,12 @@
 "use client"
 
 import Image from "next/image"
-import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
-import { cn } from "@/lib/utils"
 import { api } from "@/convex/_generated/api"
 import { useApiMutation } from "@/hooks/use-api-mutation"
+import { cn } from "@/lib/utils"
 import { Hint } from "../hint"
 
 interface NewBoardButtonProps {
@@ -16,7 +16,7 @@ interface NewBoardButtonProps {
 
 export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
   const router = useRouter()
-  const { mutate, pending } = useApiMutation(api.board.create)
+  const { mutate, pending } = useApiMutation(api.workspace.create)
 
   const onClick = () => {
     if (pending || disabled) return
@@ -27,7 +27,7 @@ export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
     })
       .then((id) => {
         toast.success("Workspace created")
-        router.push(`/board/${id}`)
+        router.push(`/workspace/${id}`)
       })
       .catch(() => toast.error("Failed to create workspace"))
   }
@@ -42,7 +42,7 @@ export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
         onClick={onClick}
         className={cn(
           "cursor-pointer hover:opacity-80",
-          (pending || disabled) && "opacity-50 cursor-not-allowed"
+          (pending || disabled) && "opacity-50 cursor-not-allowed",
         )}
       />
     </Hint>
