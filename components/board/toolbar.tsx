@@ -1,5 +1,6 @@
 import {
   Circle,
+  Eraser,
   MessageSquareText,
   MousePointer2,
   Pencil,
@@ -117,7 +118,22 @@ export const Toolbar = ({
           }
           isActive={canvasState.mode === CanvasMode.Pencil}
         />
-        <ToolButton label="Chat" icon={MessageSquareText} shortcut={7} />
+        <ToolButton
+          label="Eraser"
+          icon={Eraser}
+          shortcut={7}
+          onClick={() =>
+            setCanvasState({
+              mode: CanvasMode.Erasing,
+              layerType: LayerType.Eraser,
+            })
+          }
+          isActive={
+            canvasState.mode === CanvasMode.Erasing &&
+            canvasState.layerType === LayerType.Eraser
+          }
+        />
+        <ToolButton label="Chat" icon={MessageSquareText} shortcut={8} />
         <ToolButton
           label="Undo"
           icon={Undo2}
