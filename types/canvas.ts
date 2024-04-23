@@ -15,6 +15,7 @@ export enum LayerType {
   Path,
   Text,
   Note,
+  Eraser,
 }
 
 export type RectangleLayer = {
@@ -44,6 +45,17 @@ export type PathLayer = {
   height: number
   width: number
   fill: Color
+  points: number[][]
+  value?: string
+}
+
+export type EraserLayer = {
+  type: LayerType.Eraser
+  x: number
+  y: number
+  height: number
+  width: number
+  fill: string
   points: number[][]
   value?: string
 }
@@ -124,6 +136,10 @@ export type CanvasState =
       mode: CanvasMode.Pencil
     }
   | {
+      mode: CanvasMode.Erasing
+      layerType: LayerType.Eraser
+    }
+  | {
       mode: CanvasMode.Pressing
       origin: Point
     }
@@ -159,6 +175,7 @@ export enum CanvasMode {
   Inserting,
   Resizing,
   Pencil,
+  Erasing,
 }
 
 export enum CursorMode {
@@ -172,5 +189,6 @@ export type Layer =
   | RectangleLayer
   | EllipseLayer
   | PathLayer
+  | EraserLayer
   | TextLayer
   | NoteLayer

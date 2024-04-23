@@ -200,6 +200,11 @@ export const Canvas = ({ workspaceId }: ICanvasProps) => {
       }
 
       const id = nanoid()
+      const newLayer = penPointsToPathLayer(pencilDraft, lastUsedColor)
+      // If the current mode is Eraser, set the fill color to white (or your canvas background color)
+      if (canvasState.mode === CanvasMode.Erasing) {
+        newLayer.fill = "#fff" // white color for erasing
+      }
       liveLayers.set(
         id,
         new LiveObject(penPointsToPathLayer(pencilDraft, lastUsedColor)),
@@ -437,6 +442,13 @@ export const Canvas = ({ workspaceId }: ICanvasProps) => {
         }
         case "6": {
           setCanvasState({ mode: CanvasMode.Pencil })
+          break
+        }
+        case "7": {
+          setCanvasState({
+            mode: CanvasMode.Erasing,
+            layerType: LayerType.Eraser,
+          })
           break
         }
         case "z": {

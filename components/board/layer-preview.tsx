@@ -6,6 +6,7 @@ import { colorToCss } from "@/lib/utils"
 import { useStorage } from "@/liveblocks.config"
 import { LayerType } from "@/types/canvas"
 import { Ellipse, Note, Path, Rectangle, Text } from "./board-elements"
+import { Eraser } from "./board-elements/eraser"
 
 interface ILayerPreviewProps {
   id: string
@@ -65,6 +66,15 @@ export const LayerPreview = memo(
             layer={layer}
             onPointerDown={onLayerPointerDown}
             selectionColor={selectionColor}
+          />
+        )
+      case LayerType.Eraser:
+        return (
+          <Eraser
+            x={layer.x}
+            y={layer.y}
+            points={layer.points}
+            onPointerDown={(e) => onLayerPointerDown(e, id)}
           />
         )
       default:
