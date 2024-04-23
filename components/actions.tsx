@@ -2,6 +2,7 @@
 
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu"
 import { Link2, Pencil, Trash2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 import {
@@ -31,6 +32,7 @@ export const Actions = ({
   id,
   title,
 }: ActionProps) => {
+  const router = useRouter()
   const { onOpen } = useRenameModal()
   const { mutate, pending } = useApiMutation(api.workspace.remove)
   const onCopyLink = () => {
@@ -43,6 +45,7 @@ export const Actions = ({
     mutate({ id })
       .then(() => toast.success("Workspace deleted"))
       .catch(() => toast.error("Failed to delete workspace"))
+    router.push("/dashboard")
   }
 
   return (
