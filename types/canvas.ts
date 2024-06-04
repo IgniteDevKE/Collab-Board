@@ -80,18 +80,6 @@ export type XYWH = {
   height: number
 }
 
-export type Reaction = {
-  value: string
-  timestamp: number
-  point: { x: number; y: number }
-}
-
-export type ReactionEvent = {
-  x: number
-  y: number
-  value: string
-}
-
 export enum Side {
   Top = 1,
   Bottom = 2,
@@ -142,14 +130,6 @@ export type CursorState =
       message: string
       previousMessage: string | null
     }
-  | {
-      mode: CursorMode.ReactionSelector
-    }
-  | {
-      mode: CursorMode.Reaction
-      reaction: string
-      isPressed: boolean
-    }
 
 export enum CanvasMode {
   None,
@@ -164,8 +144,6 @@ export enum CanvasMode {
 export enum CursorMode {
   Hidden,
   Chat,
-  ReactionSelector,
-  Reaction,
 }
 
 export type Layer =
